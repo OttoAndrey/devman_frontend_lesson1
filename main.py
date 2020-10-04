@@ -5,7 +5,6 @@ import pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 excel_data_wines = pandas.read_excel('files/wine.xlsx', sheet_name='Wines', keep_default_na=False)
-print(excel_data_wines.to_dict(orient='record'))
 
 env = Environment(
     loader=FileSystemLoader('.'),
@@ -19,6 +18,7 @@ template = env.get_template('template.html')
 
 rendered_page = template.render(
     age_place=age_place,
+    wine_bottles=excel_data_wines.to_dict(orient='record'),
 )
 
 with open('index.html', 'w', encoding="utf8") as file:
