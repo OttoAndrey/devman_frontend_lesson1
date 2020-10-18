@@ -114,19 +114,24 @@
           </div>
         </div>
         <div class="row">
-          {% for wine_bottle in wine_bottles %}
-          <div class="col-lg-4 mb-5 col-md-6">
-            <div class="wine_v_1 text-center pb-4 pt-5">
-              <img src="images/{{wine_bottle.picture}}" alt="Image" class="img-fluid">
-              <div>
-                <h3 class="heading mt-3 mb-3 text-dark">{{wine_bottle.title}}</h3>
-                <p>
-                  {{wine_bottle.wine_sort}}<br/>
-                  <span class="price">{{wine_bottle.price}}</span>
-                </p>
-              </div>
+          {% for category, products in wine_bottles %}
+            <div class="col-12 section-title text-center mb-5">
+              <h2 class="d-block">{{category}}</h2>
             </div>
-          </div>
+            {% for wine_bottle in products %}
+              <div class="col-lg-4 mb-5 col-md-6">
+                <div class="wine_v_1 text-center pb-4 pt-5">
+                  <img src="images/{{wine_bottle.picture}}" alt="Image" class="img-fluid">
+                  <div>
+                    <h3 class="heading mt-3 mb-3 text-dark">{{wine_bottle.title}}</h3>
+                    <p>
+                      {{wine_bottle.wine_sort}}<br/>
+                      <span class="price">{{wine_bottle.price}} р.</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           {% endfor %}
         </div>
       </div>
