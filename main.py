@@ -1,11 +1,23 @@
+import argparse
 import collections
 import datetime
+import os
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 import pandas
+from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-excel_data_wines = pandas.read_excel('files/wine.xlsx', sheet_name='Wines', keep_default_na=False)
+load_dotenv()
+
+FILE_PATH = os.getenv('FILE_PATH') or 'files/wine.xlsx'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--file', type=argparse.FileType(mode='r'), default=FILE_PATH)
+args = parser.parse_args()
+file_name = args.file.name
+
+excel_data_wines = pandas.read_excel(file_name, sheet_name='Wines', keep_default_na=False)
 
 grouped_by_category_wines = collections.defaultdict(list)
 for wine in excel_data_wines.to_dict(orient='records'):
